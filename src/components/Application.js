@@ -21,9 +21,6 @@ const days = [
 
 export default function Application() {
   const [day, setDay] = useState("Monday");
-  const changeDay = (e) => {
-    setDay(e.target.getAttribute("day"))
-  };
    return (
     <main className="layout">
       <section className="sidebar">
@@ -34,7 +31,7 @@ export default function Application() {
         />
         <hr className="sidebar__separator sidebar--centered" />
         <nav className="sidebar__menu">
-          <DayList days={days} day={day} setDay={changeDay} />
+          <DayList days={days} day={day} setDay={setDay} />
         </nav>
         <img
           className="sidebar__lhl sidebar--centered"
