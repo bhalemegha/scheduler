@@ -17,6 +17,7 @@ import Show from "components/Appointment/Show";
 import Confirm from "components/Appointment/Confirm";
 import Status from "components/Status";
 import Error from "components/Error";
+import Form from "components/Appointment/Form";
 storiesOf("Button", module)
   .addParameters({
     backgrounds: [{ name: "dark", value: "#222f3e", default: true }]
@@ -134,7 +135,7 @@ storiesOf("InterviewerList", module)
     />
   ))
   .add("Clickable", () => (
-    <InterviewerListItem
+    <InterviewerList
       name={interviewer.name}
       avatar={interviewer.avatar}
       onChange={() => action("setInterviewer")}
@@ -174,6 +175,20 @@ storiesOf("Appointment", module)
     <Error
     message={"Could not delete appointment."}
     onClose={action("onClose")}/>
+  ))
+  .add("Edit", () => (
+    <Form
+    student={"Megha"}
+    interviewer={1}
+    interviewers={interviewers}
+    onSave={action("onSave")}
+    onCancel={action("onCancel")}/>
+  ))
+  .add("Create", () => (
+    <Form
+    interviewers={interviewers}
+    onSave={action("onSave")}
+    onCancel={action("onCancel")}/>
   ));
 
 
