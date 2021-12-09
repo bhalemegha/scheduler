@@ -5,14 +5,14 @@ import InterviewerListItem from "./InterviewerListItem";
 
 
 export default function InterviewerList(props) {
-  const { interviewers, interviewer } = props;
-  const interviewerList = interviewers.map((i) => {
-       return <InterviewerListItem key={i.id} setInterviewer = {(event) => props.setInterviewer(i.id)}  {...i} selected={(interviewer) === i.id}/>
+  const { interviewers, value, onChange } = props;
+  const interviewerList = interviewers.map((interviewer) => {
+       return <InterviewerListItem key={interviewer.id} {...interviewer} onChange = {() => onChange(interviewer.id)} selected = {(value) === interviewer.id}/>
   });
   return (
     <section className="interviewers">
-      <h4 className="interviewers__header text--light">{interviewerList}</h4>
-      <ul className="interviewers__list"></ul>
+      <h4 className="interviewers__header text--light">{value}</h4>
+      <ul className="interviewers__list">{interviewerList}</ul>
     </section>
   );
 }

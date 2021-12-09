@@ -18,14 +18,14 @@ const formatSpots = (spots) => {
 }
 
 export default function DayListItem(props) {
-  const {name, spots, setDay} = props;
+  const {name, spots, onChange} = props;
   const setStyle = classNames("day-list__item",{
     "day-list__item--selected" : props.selected,
     "day-list__item--full" : props.full
   });
 
   return (
-    <li className={setStyle} onClick={setDay}>
+    <li className={setStyle} onClick={onChange}>
       <h2 className="text--regular">{name}</h2>
       <h3 className="text--light">{formatSpots(spots)}</h3>
     </li>
