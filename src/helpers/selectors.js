@@ -1,4 +1,4 @@
-function getAppointmentsForDay(state, dayName) {
+ export default function getAppointmentsForDay(state, dayName) {
   let appointmentIds;
   let appointmentList = [];
   for (let day of state.days) {
@@ -16,4 +16,15 @@ function getAppointmentsForDay(state, dayName) {
   }
   return appointmentList;
 }
-export default getAppointmentsForDay;
+ 
+export function getInterview(state,interview) {
+  let interviewObj = {};
+  for (const i in state["interviewers"]) {
+    if (interview && state["interviewers"][i].id === interview.interviewer) {
+      interviewObj["student"] = interview.student;
+      interviewObj["interviewer"] = state["interviewers"][i];
+      return interviewObj   
+    }
+  }
+  return null;
+}
