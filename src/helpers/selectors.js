@@ -1,3 +1,4 @@
+ 
  export default function getAppointmentsForDay(state, dayName) {
   let appointmentIds;
   let appointmentList = [];
@@ -27,4 +28,24 @@ export function getInterview(state,interview) {
     }
   }
   return null;
+}
+
+
+export  function getInterviewerForDay(state, dayName) {
+  let interviewIds;
+  let interviewerList = [];
+  for (let day of state.days) {
+    if (day.name.toUpperCase() === dayName.toUpperCase()) {
+      interviewIds = (day.interviewers);
+    }
+  }
+  if (interviewIds) {
+    for (let interviewer in state.interviewers) {
+      if (interviewIds.includes(state.interviewers[interviewer].id)) {
+        interviewerList.push(state.interviewers[interviewer]);
+      }
+    }
+    return interviewerList;
+  }
+  return interviewerList;
 }
