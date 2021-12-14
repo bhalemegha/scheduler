@@ -28,7 +28,6 @@ export default function Application() {
   },[]);
 
   function bookInterview(id, newInterview) {
-    console.log(id, newInterview);
     const appointment = {
       ...state.appointments[id],
       interview: { ...newInterview }
@@ -37,9 +36,13 @@ export default function Application() {
       ...state.appointments,
       [id]: appointment
     };
-     setState({...state, appointments});
+    setState({...state, appointments});
+    console.log(`http://localhost:8001/api/appointments/${id}`);
+     axios.put(`http://localhost:8001/api/appointments/${id}`,appointment)
+     .then(() => 
+     setState(prev => ({...prev, appointments})));
      console.log(state);
-  }
+    }
 
 
   //getting appointments for specific day
