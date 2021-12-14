@@ -16,7 +16,7 @@ import Empty from "components/Appointment/Empty";
 import Show from "components/Appointment/Show";
 import Confirm from "components/Appointment/Confirm";
 import Status from "components/Status";
-import Error from "components/Error";
+import Error from "components/Appointment/Error";
 import Form from "components/Appointment/Form";
 storiesOf("Button", module)
   .addParameters({

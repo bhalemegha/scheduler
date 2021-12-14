@@ -9,7 +9,7 @@ export default function useVisualMode(init) {
     if(replace){
       back();
     }
-    setHistory(prev => [...history, newMode])
+    setHistory(prev => ([...prev, newMode]))
     setMode(newMode);
   }
 
@@ -18,7 +18,9 @@ export default function useVisualMode(init) {
     if (history.length > 1) {
       //It will remove top most element from History
       history.splice(-1);
+      // setHistory(history.filter((item,index) => index !== history.length-1));
       setHistory(history);
+      console.log(history);
       setMode(history[history.length - 1]);
     }
   }

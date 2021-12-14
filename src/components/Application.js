@@ -4,6 +4,7 @@ import "components/Application.scss";
 import Appointment from "components/Appointment";
 import axios from "axios";
 import getAppointmentsForDay, { getInterview, getInterviewerForDay } from "../helpers/selectors"
+import useVisualMode from "hooks/useVisualMode";
 
 export default function Application() {
   //Setting up the states
@@ -26,8 +27,7 @@ export default function Application() {
       setState(prev => ({ ...prev, days: all[0].data, appointments: all[1].data, interviewers: all[2].data }));
     });
   }, []);
-   function bookInterview(id, newInterview) {
-    let isOperationDone = false;
+   function bookInterview(id, newInterview, isDone) {
     const appointment = {
       ...state.appointments[id],
       interview: { ...newInterview }
@@ -37,16 +37,18 @@ export default function Application() {
       [id]: appointment
     };
 
-    setState(prev => ({ ...prev, appointments }));
+    // setState(prev => ({ ...prev, appointments }));
     axios.put(`http://localhost:8001/api/appointments/${id}`, appointment)
       .then(() => {
         setState(prev => ({ ...prev, appointments }))
-        isOperationDone = true;
+        isDone(null);
+      })
+      .catch((error)=>{
+        isDone(error);
       });
   }
 
-  function cancelInterview(id) {
-    console.log("---deleting with -----------", id);
+  function cancelInterview(id, isDone) {
     const appointment = {
       ...state.appointments[id],
       interview: null
@@ -56,11 +58,15 @@ export default function Application() {
       [id]: appointment
     };
 
-    setState(prev => ({ ...prev, appointments }))
+    console.log("---deleting with -----------", id);
     axios.delete(`http://localhost:8001/api/appointments/${id}`)
-      .then(() => {
-        setState(prev => ({ ...prev, appointments }))
-      });
+    .then(() => {
+      setState(prev => ({ ...prev, appointments }));
+      isDone(null);
+    })
+    .catch((error) => {
+      isDone(error)
+    });  
   }
 
 
