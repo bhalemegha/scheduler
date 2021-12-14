@@ -6,6 +6,7 @@ import axios from "axios";
 import getAppointmentsForDay, {getInterview, getInterviewerForDay} from "../helpers/selectors"
 
 export default function Application() {
+  //Setting up the states
   const [state, setState] = useState({
     day:"Monday",
     days:[],
@@ -13,7 +14,9 @@ export default function Application() {
     interviewers:{}
   });
  
+  //To maintain day state, It can be-Monday, Tuesday...what ever day has been selected on day list component
   const setDay = day => setState({ ...state, day });
+  //It will call Api once as we are passing an empty array as dependency which is never going to change
   useEffect(()=>{
     Promise.all([
       axios.get('http://localhost:8001/api/days'),
@@ -21,15 +24,31 @@ export default function Application() {
       axios.get('http://localhost:8001/api/interviewers')
     ]).then((all) => {
        setState(prev => ({...prev, days: all[0].data, appointments: all[1].data, interviewers: all[2].data }));
-    });
-
-    
+    });    
   },[]);
 
+  function bookInterview(id, newInterview) {
+    console.log(id, newInterview);
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...newInterview }
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+     setState({...state, appointments});
+     console.log(state);
+  }
+
+
+  //getting appointments for specific day
   const appointmentList = getAppointmentsForDay(state,state.day).map((appointment) => {
     const interview = getInterview(state,appointment.interview);
     const interviewerList = getInterviewerForDay(state,state.day);
     console.log("InterviewList---",state);
+    //Getting all Apoointments for specific day
+
     return (
       <Appointment
         key={appointment.id}
@@ -37,12 +56,10 @@ export default function Application() {
         time={appointment.time}
         interview={interview}
         interviewers={interviewerList}
+        bookInterview={bookInterview}
       />
     );
   });
-  // const appointmentList = getAppointmentsForDay(state,state.day).map((appointment) => {
-  //   return <Appointment key={appointment.id} {...appointment} />
-  // });
 
   return (
     <main className="layout">
