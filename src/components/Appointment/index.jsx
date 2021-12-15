@@ -53,15 +53,6 @@ export default function Appointment(props) {
     });
   }
 
-  // function deleteAppointment() {
-  //   message = "Deleting...";
-  //   transition(WAIT);
-  //   props.cancelInterview(props.id)
-  //   .then(()=>(transition(EMPTY)))
-  //   .catch((err)=>(transition(ERROR_DELETE, true)));
-  // }
-
-
   return (
     <article className="appointment">
       <Header time={props.time} />
@@ -77,8 +68,9 @@ export default function Appointment(props) {
           onEdit={() => transition(EDIT)}
         />
       )}
-      {/* Mode create will desplay form to create appointments */}
+      {/* for transition mode (saving or delete) */}
       {mode === WAIT && <Status message={message} />}
+      {/* Mode create will desplay form to create appointments */}
       {(mode === CREATE) && (<Form interviewers={props.interviewers} onCancel={back} onSave={save} />)}
       {(mode === EDIT) && (<Form interviewers={props.interviewers} student={props.interview.student} interviewer={props.interview.interviewer.id} onCancel={back} onSave={save} />)}
       {mode === CONFIRM && <Confirm onCancel={back} message={DELETE_MSG} onConfirm={deleteAppointment} />}
