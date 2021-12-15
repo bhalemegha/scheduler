@@ -1,3 +1,4 @@
+
 import React from "react";
 import useVisualMode from "../../hooks/useVisualMode";
 import "components/Appointment/styles.scss";
@@ -23,7 +24,6 @@ export default function Appointment(props) {
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
-  if (props.interview) console.log("#####  ", props.interview.interviewer);
   let message = "";
   function save(name, interviewer) {
     const interview = {

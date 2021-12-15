@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import getAppointmentsForDay from "helpers/selectors";
 export default function useApplicationData() {
   //Setting up the state
   const [state, setState] = useState({
@@ -22,7 +23,25 @@ export default function useApplicationData() {
     });
   }, []);
 
-  function bookInterview(id, newInterview, isDone) {
+  const updateSpots = function (AppointmentId, isAdd) {
+    let appointmentList = [];
+    for (let curday of state.days) {
+      if (curday.name === state.day) {
+        console.log("state.days-----", curday.appointments);
+        appointmentList = curday.appointments;
+        console.log(appointmentList);
+        break;
+      }
+    }
+    let emptyAppList = appointmentList.filter(appId => !state.appointments[appId].interview);
+    console.log(emptyAppList.length);
+    if (isAdd) {
+      return emptyAppList.length - 1;
+    }
+    return emptyAppList.length + 1;
+  }
+
+  const bookInterview = function (id, newInterview, isErr) {
 
     const appointment = {
       ...state.appointments[id],
@@ -32,19 +51,20 @@ export default function useApplicationData() {
       ...state.appointments,
       [id]: appointment
     };
-
-    // setState(prev => ({ ...prev, appointments }));
+    const availbleSpots = updateSpots(id, true);
     axios.put(`http://localhost:8001/api/appointments/${id}`, appointment)
       .then(() => {
-        setState(prev => ({ ...prev, appointments }))
-        isDone(null);
+        setState(prev => ({
+          ...prev, appointments
+        }));
+        isErr(null);
       })
       .catch((error) => {
-        isDone(error);
+        isErr(error);
       });
   }
 
-  function cancelInterview(id, isDone) {
+  const cancelInterview = function (id, isErr) {
     const appointment = {
       ...state.appointments[id],
       interview: null
@@ -53,13 +73,17 @@ export default function useApplicationData() {
       ...state.appointments,
       [id]: appointment
     };
+    const availbleSpots = updateSpots(id, false);
+
     axios.delete(`http://localhost:8001/api/appointments/${id}`)
       .then(() => {
-        setState(prev => ({ ...prev, appointments }));
-        isDone(null);
+        setState(prev => ({
+          ...prev, appointments 
+        }));
+        isErr(null);
       })
       .catch((error) => {
-        isDone(error)
+        isErr(error)
       });
   }
 

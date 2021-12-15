@@ -13,7 +13,6 @@ export default function Application() {
   const appointmentList = getAppointmentsForDay(state, state.day).map((appointment) => {
     const interview = getInterview(state, appointment.interview);
     const interviewerList = getInterviewerForDay(state, state.day);
-    console.log("InterviewList---", state);
     //Getting all Apoointments for specific day
 
     return (
@@ -29,6 +28,7 @@ export default function Application() {
     );
   });
 
+  //Side bar and Appointment list
   return (
     <main className="layout">
       <section className="sidebar">

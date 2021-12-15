@@ -18,9 +18,9 @@ export default function useVisualMode(init) {
     if (history.length > 1) {
       //It will remove top most element from History
       history.splice(-1);
-      // setHistory(history.filter((item,index) => index !== history.length-1));
+      
+      // setHistory(()=>{ return history.slice(0,history.length - 1)});
       setHistory(history);
-      console.log(history);
       setMode(history[history.length - 1]);
     }
   }
