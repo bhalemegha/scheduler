@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import getAppointmentsForDay from "helpers/selectors";
 export default function useApplicationData() {
   //Setting up the state
   const [state, setState] = useState({
@@ -25,7 +24,7 @@ export default function useApplicationData() {
 
   const updateSpots = function(appId, isAdd) {
     const days = state.days.map(day => {
-      if (day.appointments.indexOf(appId) > -1) {
+      if (day.appointments.includes(appId)) {
         if(isAdd){
           day.spots = day.spots - 1;
         } else {
