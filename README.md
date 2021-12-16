@@ -2,8 +2,16 @@
 Scheduler is a Single Page Application has been built to learn React and Testing frameworks like Jest, Storybook and Cypress. It uses PostgreSQL to persist data. It communicates with API server over HTTP and uses JSON format.
 
 ## Final Product
+All Appointments for selected days
+
 ![Schedules](https://github.com/bhalemegha/scheduler/blob/master/docs/Schedules.jpg)
+
+Form to create new or edit appointment
+
 ![New or Edit Form](https://github.com/bhalemegha/scheduler/blob/master/docs/Save_Edit_form.jpg)
+
+confirmation dialog before deleting appointment
+
 ![Delete Confirmation Dialog Box](https://github.com/bhalemegha/scheduler/blob/master/docs/confirm_delete_dialog.jpg)
 ## Setup and Dependencies
 
