@@ -1,12 +1,14 @@
- 
+ //getting appointmnets for selected day
  export default function getAppointmentsForDay(state, dayName) {
   let appointmentIds;
   let appointmentList = [];
-  for (let day of state.days) {
+  //iterating through state to get appointment Ids for selected day
+  for (let day of state.days) { 
     if (day.name.toUpperCase() === dayName.toUpperCase()) {
       appointmentIds = (day.appointments);
     }
   }
+  //if appointment will be filled in array from App ids
   if (appointmentIds) {
     for (let appointment in state.appointments) {
       if (appointmentIds.includes(state.appointments[appointment].id)) {
@@ -17,7 +19,8 @@
   }
   return appointmentList;
 }
- 
+
+//Getting interview obj from id
 export function getInterview(state,interview) {
   let interviewObj = {};
   for (const i in state["interviewers"]) {
@@ -30,7 +33,7 @@ export function getInterview(state,interview) {
   return null;
 }
 
-
+//get available interviewers for selected day
 export  function getInterviewerForDay(state, dayName) {
   let interviewIds;
   let interviewerList = [];

@@ -9,7 +9,7 @@ import Form from "./Form";
 import Status from "components/Status";
 import Confirm from "./Confirm";
 import Error from "./Error";
-
+//Mode constants
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE";
@@ -24,23 +24,27 @@ export default function Appointment(props) {
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
+  //this message is used to display transition message--deleting/saving
   let message = "";
+
+  //saves an interview, creates interview onject
   function save(name, interviewer) {
     const interview = {
       student: name,
       interviewer
     };
-    message = "Waiting..."
+    message = "Saving..."
     transition(WAIT);
     props.bookInterview(props.id, interview, (err) => {
       if (!err) {
         transition(SHOW);
         return;
       }
-      transition(ERROR_SAVE, true);
+      transition(ERROR_SAVE, true); //will display error if occured, changes mode to error_save true is to set relace mode in state
     });
   }
 
+  //deletes appointment, and set mode empty if successfully deleted the appoinrment
   function deleteAppointment() {
     message = "Deleting...";
     transition(WAIT);

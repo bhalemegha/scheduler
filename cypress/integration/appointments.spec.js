@@ -35,14 +35,14 @@ describe("should book an interview", () => {
   });
 
   it("Edit an appointment successfully", () => {
-    cy.get('.appointment').first().trigger('mouseover');
-    cy.get('[alt=Edit]').first().invoke('show').click();
-    cy.get("[interviewid=2]").first().click();
-    cy.get(".button--confirm").click();
-    cy.contains(".appointment__card--show", "Archie Cohen");
-    cy.contains("Tori Malcolm");
+    cy.get('.appointment').first().trigger('mouseover');//triggers hover event
+    cy.get('[alt=Edit]').first().invoke('show').click();//show edit btn
+    cy.get("[interviewid=2]").first().click();//selects another interviewer
+    cy.get(".button--confirm").click();//saves edited appointment
+    cy.contains(".appointment__card--show", "Archie Cohen");//check studentname should be same after edit
+    cy.contains("Tori Malcolm");//checks if interviewer has been changed
   });
-
+  // triggers hover, then click the delete and appointment gets deleted once confirm
   it("Delete an appointment successfully", () => {
     cy.get('.appointment').first().trigger('mouseover');
     cy.get('[alt=Delete]').first().invoke('show').click();

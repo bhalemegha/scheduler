@@ -1,4 +1,5 @@
 import React from "react";
+//It will render errors if there is any while adding or deleting appointments
 export default function Error(props) {
   return (<main className="appointment__card appointment__card--error">
   <section className="appointment__error-message">

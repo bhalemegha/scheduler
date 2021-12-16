@@ -3,14 +3,17 @@ import Button from "components/Button";
 import InterviewerList from "components/InterviewerList";
 
 export default function Form(props) {
-  const [student, setStudent] = useState(props.student || "");
-  const [interviewer, setInterviewer] = useState(props.interviewer || null);
-  const [error, setError] = useState("");
+  const [student, setStudent] = useState(props.student || ""); //state for student input
+  const [interviewer, setInterviewer] = useState(props.interviewer || null); //state for interviewer from list
+  const [error, setError] = useState("");//to capture state of error(Validation error)
+
+  //Student input onChange eent handler..Controlled input element
   const handleInput = (event) => {
     setStudent(event.target.value);
     setError(null);
   }
 
+  //reset form inputs and list if user cancels the operation
   const reset = function () {
     setStudent("");
     setInterviewer("");
@@ -21,6 +24,7 @@ export default function Form(props) {
     props.onCancel();
   }
 
+  //it will update error state if enter student input is empty
    const validate = (event) => {
     if (student === "") {
       setError("Student name cannot be blank");
@@ -29,6 +33,7 @@ export default function Form(props) {
     props.onSave(student, interviewer);
   }
 
+  //Renders Edit and create forms
   return (<main className="appointment__card appointment__card--create">
     <form autoComplete="off" onSubmit={e => { e.preventDefault(); }}>
       <section className="appointment__card-left">

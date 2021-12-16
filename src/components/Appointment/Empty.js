@@ -1,4 +1,5 @@
 import React from "react";
+//It will render '+' when there is no appointment booked for given slot
 export default function Empty(props) {
   return (<main className="appointment__add">
   <img
