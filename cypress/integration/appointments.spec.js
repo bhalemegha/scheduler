@@ -47,6 +47,8 @@ describe("should book an interview", () => {
     cy.get('.appointment').first().trigger('mouseover');
     cy.get('[alt=Delete]').first().invoke('show').click();
     cy.contains("Confirm").click();
+    cy.contains("Deleting").should("exist");
+    cy.contains("Deleting").should("not.exist");
     cy.contains(".appointment__card--show", "Archie Cohen")
     .should("not.exist");
   });

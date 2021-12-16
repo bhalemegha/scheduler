@@ -16,6 +16,8 @@ const CREATE = "CREATE";
 const WAIT = "WAIT";
 const CONFIRM = "CONFIRM";
 const EDIT = "EDIT";
+const SAVING = "SAVING";
+const DELETING = "DELETING";
 const ERROR_SAVE = "ERROR_SAVE";
 const ERROR_DELETE = "ERROR_DELETE";
 const DELETE_MSG = "Are you sure you would like to delete?"
@@ -34,8 +36,8 @@ export default function Appointment(props) {
       interviewer
     };
     message = "Saving..."
-    transition(WAIT);
-    props.bookInterview(props.id, interview, (err) => {
+    transition(SAVING);
+    props.bookInterview(props.id, interview, mode, (err) => {
       if (!err) {
         transition(SHOW);
         return;
@@ -47,7 +49,7 @@ export default function Appointment(props) {
   //deletes appointment, and set mode empty if successfully deleted the appoinrment
   function deleteAppointment() {
     message = "Deleting...";
-    transition(WAIT);
+    transition(DELETING);
     props.cancelInterview(props.id, (err) => {
       if (!err) {
         transition(EMPTY);
@@ -73,7 +75,8 @@ export default function Appointment(props) {
         />
       )}
       {/* for transition mode (saving or delete) */}
-      {mode === WAIT && <Status message={message} />}
+      {mode === SAVING && <Status message={"Saving"} />}
+      {mode === DELETING && <Status message={"Deleting"} />}
       {/* Mode create will desplay form to create appointments */}
       {(mode === CREATE) && (<Form interviewers={props.interviewers} onCancel={back} onSave={save} />)}
       {(mode === EDIT) && (<Form interviewers={props.interviewers} student={props.interview.student} interviewer={props.interview.interviewer.id} onCancel={back} onSave={save} />)}

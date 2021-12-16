@@ -22,11 +22,13 @@ export default function useApplicationData() {
     });
   }, []);
 
-  const updateSpots = function(appId, isAdd) {
+  const updateSpots = function(appId, mode) {
     const days = state.days.map(day => {
       if (day.appointments.includes(appId)) {
-        if(isAdd){
-          day.spots = day.spots - 1;
+        if(mode){
+           if (mode !== "EDIT") {
+             day.spots = day.spots - 1;
+            }
         } else {
           day.spots = day.spots + 1;
         }
@@ -36,7 +38,7 @@ export default function useApplicationData() {
     return days;
   }
 
-  const bookInterview = function (id, newInterview, isErr) {
+  const bookInterview = function (id, newInterview, mode, isErr) {
 
     const appointment = {
       ...state.appointments[id],
@@ -46,10 +48,10 @@ export default function useApplicationData() {
       ...state.appointments,
       [id]: appointment
     };
-    const days = updateSpots(id, true);
     axios.put(`http://localhost:8001/api/appointments/${id}`, appointment)
-      .then(() => {
-        setState(prev => ({
+    .then(() => {
+      const days = updateSpots(id, mode);
+      setState(prev => ({
           ...prev, appointments, days
         }));
         isErr(null);
@@ -68,10 +70,11 @@ export default function useApplicationData() {
       ...state.appointments,
       [id]: appointment
     };
-    const days = updateSpots(id, false);
+    // const days = updateSpots(id, false);
 
     axios.delete(`http://localhost:8001/api/appointments/${id}`)
       .then(() => {
+        const days = updateSpots(id, false);
         setState(prev => ({
           ...prev, appointments, days
         }));
