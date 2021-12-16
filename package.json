@@ -19,7 +19,7 @@
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public --ci",
     "build-storybook": "build-storybook -s public",
-    "cypress" : "cypress open"
+    "cypress": "cypress open"
   },
   "browserslist": {
     "production": [
@@ -45,6 +45,8 @@
     "babel-loader": "^8.0.5",
     "cypress": "^9.1.1",
     "dom-testing-library": "^5.0.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.6",
     "node-sass": "^4.14.0",
     "prop-types": "^15.7.2",
     "react-test-renderer": "^16.9.0"
