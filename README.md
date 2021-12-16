@@ -1,5 +1,5 @@
 # Interview Scheduler
-Scheduler is a Single Page Application has been built to learn React and Testing frameworks like Jest, Storybook and Cypress. It uses PostgreSQL to persist data. It communicates with API server over HTTP and uses JSON format.
+Scheduler is a Single Page Application. It has been built to learn React and Testing frameworks like Jest, Storybook and Cypress. It uses PostgreSQL to persist data. It communicates with API server over HTTP and uses JSON format.
 
 ## Final Product
 All Appointments for selected days
