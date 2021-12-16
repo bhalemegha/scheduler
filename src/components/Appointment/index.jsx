@@ -13,7 +13,6 @@ import Error from "./Error";
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE";
-const WAIT = "WAIT";
 const CONFIRM = "CONFIRM";
 const EDIT = "EDIT";
 const SAVING = "SAVING";
@@ -27,15 +26,13 @@ export default function Appointment(props) {
     props.interview ? SHOW : EMPTY
   );
   //this message is used to display transition message--deleting/saving
-  let message = "";
-
-  //saves an interview, creates interview onject
+    //saves an interview, creates interview onject
   function save(name, interviewer) {
     const interview = {
       student: name,
       interviewer
     };
-    message = "Saving..."
+
     transition(SAVING);
     props.bookInterview(props.id, interview, mode, (err) => {
       if (!err) {
@@ -48,7 +45,6 @@ export default function Appointment(props) {
 
   //deletes appointment, and set mode empty if successfully deleted the appoinrment
   function deleteAppointment() {
-    message = "Deleting...";
     transition(DELETING);
     props.cancelInterview(props.id, (err) => {
       if (!err) {

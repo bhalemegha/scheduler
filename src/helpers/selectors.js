@@ -37,11 +37,13 @@ export function getInterview(state,interview) {
 export  function getInterviewerForDay(state, dayName) {
   let interviewIds;
   let interviewerList = [];
+  // iterating through the days to get iterview ids for selected day
   for (let day of state.days) {
     if (day.name.toUpperCase() === dayName.toUpperCase()) {
       interviewIds = (day.interviewers);
     }
   }
+  //Filling up the list with interview objects
   if (interviewIds) {
     for (let interviewer in state.interviewers) {
       if (interviewIds.includes(state.interviewers[interviewer].id)) {
