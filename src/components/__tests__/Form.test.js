@@ -1,9 +1,6 @@
 import React from "react";
-import shallow from 'enzyme';
 import { render, cleanup } from "@testing-library/react";
 import { fireEvent } from "@testing-library/react";
-// import {getByTestId} from '@testing-library/dom'
-// import '@testing-library/jest-dom'
 import Form from "components/Appointment/Form";
 
 afterEach(cleanup);

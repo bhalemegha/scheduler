@@ -9,6 +9,7 @@ export default function useVisualMode(init) {
     if(replace){
       back();
     }
+
     setHistory(prev => ([...prev, newMode]))
     setMode(newMode);
   }
@@ -16,12 +17,13 @@ export default function useVisualMode(init) {
   const back = function () {
     //To prevent initial element from deleting
     if (history.length > 1) {
+      const newHist = [...history];
       //It will remove top most element from History
-      history.splice(-1);
+      newHist.splice(-1);
       
       // setHistory(()=>{ return history.slice(0,history.length - 1)});
-      setHistory(history);
-      setMode(history[history.length - 1]);
+      setHistory(newHist);
+      setMode(newHist[newHist.length - 1]);
     }
   }
   return { mode, transition, back };
